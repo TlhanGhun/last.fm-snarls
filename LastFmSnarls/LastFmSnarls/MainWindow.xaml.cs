@@ -29,7 +29,7 @@ namespace LastFmSnarls
         private static string iconPath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\LastFmSnarls.ico";
         private NativeWindowApplication.snarlMsgWnd snarlComWindow;
         private static string userNameString = "";
-        private static bool DEBUG = true;
+        private static bool DEBUG = false;
 
         private Thread backgroundWorker = new Thread(monitorUser);
 

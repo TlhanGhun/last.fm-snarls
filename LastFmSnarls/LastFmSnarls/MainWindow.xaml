@@ -1,7 +1,7 @@
 ﻿<Window x:Class="LastFmSnarls.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="MainWindow" Height="149" Width="167" AllowsTransparency="False" Icon="/LastFmSnarls;component/LastFmSnarls.ico">
+    Title="MainWindow" Height="149" Width="167" AllowsTransparency="False">
     <Grid>
         <Button Height="23" Margin="38,41,0,0" Name="startButton" VerticalAlignment="Top" Click="startButton_Click" HorizontalAlignment="Left" Width="74" IsEnabled="False">Start</Button>
         <Button Height="23" Margin="38,70,0,0" Name="stopButton" VerticalAlignment="Top" Click="stopButton_Click" HorizontalAlignment="Left" Width="74" IsEnabled="False">Stop</Button>
