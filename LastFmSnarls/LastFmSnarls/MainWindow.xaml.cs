@@ -27,9 +27,12 @@ namespace LastFmSnarls
         private static IntPtr hwnd = IntPtr.Zero;
         private string versionString = "1.0 Beta 2";
         private static string iconPath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\LastFmSnarls.ico";
-        private NativeWindowApplication.snarlMsgWnd snarlComWindow;
+        private static NativeWindowApplication.snarlMsgWnd snarlComWindow;
         private static string userNameString = "";
         private static bool DEBUG = false;
+
+        private WindowState m_storedWindowState = WindowState.Normal;
+        private System.Windows.Forms.NotifyIcon m_notifyIcon;
 
         private Thread backgroundWorker = new Thread(monitorUser);
 
@@ -54,6 +57,12 @@ namespace LastFmSnarls
             {
                 SnarlConnector.RegisterAlert("last.fm snarls", "Debug messages");
             }
+
+
+            m_notifyIcon = new System.Windows.Forms.NotifyIcon();
+            m_notifyIcon.Text = "last.fm snarls";
+            m_notifyIcon.Icon = new System.Drawing.Icon(iconPath);
+            m_notifyIcon.DoubleClick += new EventHandler(m_notifyIcon_Click);
             
         }
 
@@ -119,6 +128,7 @@ namespace LastFmSnarls
 
                         string artworkPath = getArtworkPath(nowPlaying);
                         SnarlConnector.ShowMessageEx("Now being played track", nowPlaying.Artist.Name.ToString(), nowPlaying.Title.ToString() + "\n\n" + nowPlaying.Album.ToString(), 10, artworkPath, hwnd, Snarl.WindowsMessage.WM_USER + 11, "");
+                        snarlComWindow.currentUrl = nowPlaying.Url.AbsoluteUri;
                         lastPlaying = nowPlaying;
                         if (artworkPath != iconPath)
                         {
@@ -129,6 +139,7 @@ namespace LastFmSnarls
                     {
                         string artworkPath = getArtworkPath(lastTrack);
                         SnarlConnector.ShowMessageEx("Recently played track", lastTrack.Artist.Name.ToString(), lastTrack.Title.ToString() + "\n\n" + lastTrack.Album.ToString(), 10, artworkPath, hwnd, Snarl.WindowsMessage.WM_USER + 12, "");
+                        snarlComWindow.recentUrl = lastTrack.Url.AbsoluteUri;
                         lastRecent = lastTrack;
                         if (artworkPath != iconPath)
                         {
@@ -201,6 +212,55 @@ namespace LastFmSnarls
                 startButton.IsEnabled = false;
             }
 
+        }
+
+
+
+
+
+
+
+
+
+        void OnClose(object sender, System.ComponentModel.CancelEventArgs args)
+        {
+            m_notifyIcon.Dispose();
+            m_notifyIcon = null;
+        }
+
+
+        void OnStateChanged(object sender, EventArgs args)
+        {
+            if (WindowState == WindowState.Minimized)
+            {
+                    m_notifyIcon.Text = "last.fm snarls " + versionString;
+
+
+                    Hide();
+
+            }
+            else
+                m_storedWindowState = WindowState;
+        }
+        void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs args)
+        {
+            CheckTrayIcon();
+        }
+
+        void m_notifyIcon_Click(object sender, EventArgs e)
+        {
+            Show();
+            WindowState = m_storedWindowState;
+        }
+        void CheckTrayIcon()
+        {
+            ShowTrayIcon(!IsVisible);
+        }
+
+        void ShowTrayIcon(bool show)
+        {
+            if (m_notifyIcon != null)
+                m_notifyIcon.Visible = show;
         }
 
     }
