@@ -25,7 +25,7 @@ namespace LastFmSnarls
     public partial class MainWindow : Window
     {
         private static IntPtr hwnd = IntPtr.Zero;
-        private string versionString = "1.0 Beta 2";
+        private string versionString = "1.0 RC1";
         private static string iconPath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\LastFmSnarls.ico";
         private static NativeWindowApplication.snarlMsgWnd snarlComWindow;
         private static string userNameString = "";
@@ -39,14 +39,14 @@ namespace LastFmSnarls
         public MainWindow()
         {
             InitializeComponent();
-            
+
             this.Title = "last.fm snarls " + versionString;
             if (hwnd == IntPtr.Zero)
             {
                 snarlComWindow = new NativeWindowApplication.snarlMsgWnd();
                 hwnd = snarlComWindow.Handle;
             }
-                    
+
             SnarlConnector.RegisterConfig(hwnd, "last.fm snarls", Snarl.WindowsMessage.WM_USER + 58, iconPath);
 
             SnarlConnector.RegisterAlert("last.fm snarls", "Greeting");
@@ -63,20 +63,21 @@ namespace LastFmSnarls
             m_notifyIcon.Text = "last.fm snarls";
             m_notifyIcon.Icon = new System.Drawing.Icon(iconPath);
             m_notifyIcon.DoubleClick += new EventHandler(m_notifyIcon_Click);
-            
+
         }
 
         ~MainWindow()
         {
             SnarlConnector.RevokeConfig(hwnd);
-            if(hwnd != IntPtr.Zero) {
+            if (hwnd != IntPtr.Zero)
+            {
                 snarlComWindow.DestroyHandle();
             }
-            
-                backgroundWorker.Abort();
-                
-                
-            
+
+            backgroundWorker.Abort();
+
+
+
         }
 
         static void monitorUser()
@@ -89,8 +90,8 @@ namespace LastFmSnarls
             Settings20.AuthData = myAuth;
 
             LastFmClient client = LastFmClient.Create(myAuth);
-          //  client.LastFmUser.Username = "xxxx";
-          //  client.LastFmUser.EncryptAndSetPassword("xxxx");
+            //  client.LastFmUser.Username = "xxxx";
+            //  client.LastFmUser.EncryptAndSetPassword("xxxx");
 
             RecentTrack lastPlaying = null;
             RecentTrack lastRecent = null;
@@ -152,7 +153,7 @@ namespace LastFmSnarls
 
                 catch (Exception exp)
                 {
-                    if (lastConnectionErrorId == 0)
+                    if (lastConnectionErrorId == 0 && exp.Message != "Thread was being aborted.")
                     {
                         lastConnectionErrorId = SnarlConnector.ShowMessageEx("Connection error", "Connection to last.fm failed", "Connection to the last.fm can't be established. Maybe they are down or your internet connection is not available", 20, iconPath, hwnd, Snarl.WindowsMessage.WM_USER + 13, "");
                         if (DEBUG)
@@ -166,20 +167,21 @@ namespace LastFmSnarls
             }
         }
 
-            private static string getArtworkPath(RecentTrack thisTrack) {
-                string filenameArtwork = "";
-                System.Drawing.Bitmap artwork = thisTrack.DownloadImage(modEnums.ImageSize.MediumOrSmallest);
-                if (artwork != null)
-                {
-                    filenameArtwork = System.IO.Path.GetTempFileName();
-                    artwork.Save(filenameArtwork);
-                    return filenameArtwork;
-                }
-                else
-                {
-                    return iconPath;
-                }
+        private static string getArtworkPath(RecentTrack thisTrack)
+        {
+            string filenameArtwork = "";
+            System.Drawing.Bitmap artwork = thisTrack.DownloadImage(modEnums.ImageSize.MediumOrSmallest);
+            if (artwork != null)
+            {
+                filenameArtwork = System.IO.Path.GetTempFileName();
+                artwork.Save(filenameArtwork);
+                return filenameArtwork;
             }
+            else
+            {
+                return iconPath;
+            }
+        }
 
         private void startButton_Click(object sender, RoutedEventArgs e)
         {
@@ -203,7 +205,8 @@ namespace LastFmSnarls
         private void userName_TextChanged(object sender, TextChangedEventArgs e)
         {
             System.Windows.Controls.TextBox temp = (System.Windows.Controls.TextBox)sender;
-            if(temp.Text != "") {
+            if (temp.Text != "")
+            {
                 userNameString = temp.Text;
                 startButton.IsEnabled = true;
             }
@@ -233,10 +236,10 @@ namespace LastFmSnarls
         {
             if (WindowState == WindowState.Minimized)
             {
-                    m_notifyIcon.Text = "last.fm snarls " + versionString;
+                m_notifyIcon.Text = "last.fm snarls " + versionString;
 
 
-                    Hide();
+                Hide();
 
             }
             else
