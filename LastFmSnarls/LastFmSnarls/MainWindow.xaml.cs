@@ -25,8 +25,8 @@ namespace LastFmSnarls
     public partial class MainWindow : Window
     {
         private static IntPtr hwnd = IntPtr.Zero;
-        private string versionString = "1.0 RC1";
-        private static string iconPath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\LastFmSnarls.ico";
+        private string versionString = "1.0";
+        private static string iconPath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\LastFm.ico";
         private static NativeWindowApplication.snarlMsgWnd snarlComWindow;
         private static string userNameString = "";
         private static bool DEBUG = false;
@@ -45,6 +45,10 @@ namespace LastFmSnarls
             {
                 snarlComWindow = new NativeWindowApplication.snarlMsgWnd();
                 hwnd = snarlComWindow.Handle;
+            }
+
+            if(!System.IO.File.Exists(iconPath)) {
+                iconPath = "";
             }
 
             SnarlConnector.RegisterConfig(hwnd, "last.fm snarls", Snarl.WindowsMessage.WM_USER + 58, iconPath);
@@ -95,7 +99,7 @@ namespace LastFmSnarls
 
             RecentTrack lastPlaying = null;
             RecentTrack lastRecent = null;
-
+            bool directlyAfterStart = true;
 
             while (true)
             {
@@ -106,6 +110,7 @@ namespace LastFmSnarls
                     RecentTrack nowPlaying = null;
                     RecentTrack lastTrack = null;
 
+                    
                     recentTracks.Reverse();
 
                     foreach (RecentTrack currentTrack in recentTracks)
@@ -138,16 +143,21 @@ namespace LastFmSnarls
                     }
                     if (lastTrack != null && lastRecent != lastTrack)
                     {
-                        string artworkPath = getArtworkPath(lastTrack);
-                        SnarlConnector.ShowMessageEx("Recently played track", lastTrack.Artist.Name.ToString(), lastTrack.Title.ToString() + "\n\n" + lastTrack.Album.ToString(), 10, artworkPath, hwnd, Snarl.WindowsMessage.WM_USER + 12, "");
-                        snarlComWindow.recentUrl = lastTrack.Url.AbsoluteUri;
-                        lastRecent = lastTrack;
-                        if (artworkPath != iconPath)
+                        if (!directlyAfterStart)
                         {
-                            System.IO.File.Delete(artworkPath);
+                            string artworkPath = getArtworkPath(lastTrack);
+                            SnarlConnector.ShowMessageEx("Recently played track", lastTrack.Artist.Name.ToString(), lastTrack.Title.ToString() + "\n\n" + lastTrack.Album.ToString(), 10, artworkPath, hwnd, Snarl.WindowsMessage.WM_USER + 12, "");
+                            snarlComWindow.recentUrl = lastTrack.Url.AbsoluteUri;
+
+                            if (artworkPath != iconPath)
+                            {
+                                System.IO.File.Delete(artworkPath);
+                            }
                         }
+                        directlyAfterStart = false;
+                        lastRecent = lastTrack;
                     }
-                    Thread.Sleep(2000);
+                    Thread.Sleep(1000);
                 }
 
 
