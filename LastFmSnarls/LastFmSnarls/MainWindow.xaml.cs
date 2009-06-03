@@ -122,7 +122,7 @@ namespace LastFmSnarls
                         }
                         else
                         {
-                            lastTrack = currentTrack;
+                             lastTrack = currentTrack;
                         }
 
                     }
@@ -165,7 +165,7 @@ namespace LastFmSnarls
                 {
                     if (lastConnectionErrorId == 0 && exp.Message != "Thread was being aborted.")
                     {
-                        lastConnectionErrorId = SnarlConnector.ShowMessageEx("Connection error", "Connection to last.fm failed", "Connection to the last.fm can't be established. Maybe they are down or your internet connection is not available", 20, iconPath, hwnd, Snarl.WindowsMessage.WM_USER + 13, "");
+                        lastConnectionErrorId = SnarlConnector.ShowMessageEx("Connection error", "Connection to last.fm failed", "Connection to last.fm can't be established. Maybe the site is down or your internet connection is not available", 20, iconPath, hwnd, Snarl.WindowsMessage.WM_USER + 13, "");
                         if (DEBUG)
                         {
                             SnarlConnector.ShowMessageEx("Debug message", "Error message", exp.Message, 0, iconPath, hwnd, Snarl.WindowsMessage.WM_USER + 77, "");
