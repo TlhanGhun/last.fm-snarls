@@ -1,1 +1,3 @@
 last.fm snarls uses the LastFmLib.Net (http://lastfmlibnet.sourceforge.net/)
+
+The used icons are from the Crystal project http://www.everaldo.com/crystal/

@@ -1,12 +1,3 @@
-; example2.nsi
-;
-; This script is based on example1.nsi, but it remember the directory, 
-; has uninstall support and (optionally) installs start menu shortcuts.
-;
-; It will install example2.nsi into a directory that the user selects,
-
-;--------------------------------
-
 !include "MUI2.nsh"
 !include "checkDotNet3.nsh"
 
@@ -51,6 +42,9 @@ RequestExecutionLevel admin
 !define MUI_WELCOMEPAGE_TITLE "last.fm snarls"
 !define MUI_WELCOMEPAGE_TEXT "last.fm snarls displays the currently played track in your last.fm account as well as the previous one using the general notification system Snarl."
 !define MUI_STARTMENUPAGE_DEFAULTFOLDER "Tlhan Ghun\last.fm snarls"
+!define MUI_ICON "..\..\LastFmSnarls.ico"
+!define MUI_UNICON "uninstall.ico"
+
 
 Var StartMenuFolder
 ; Pages
@@ -166,7 +160,9 @@ Section "last.fm snarls"
   File "LastFmLibNet.xml"
   File "LastFmSnarls.exe"
   File "LastFmSnarls.pdb"
+  File "LastFmSnarls.ico"
   File "LICENSE.txt"
+  File "Documentation.ico"
   
   
   ; Write the installation path into the registry
@@ -191,14 +187,13 @@ Section "Start Menu Shortcuts"
 
   CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
   CreateShortCut "$SMPROGRAMS\$StartMenuFolder\\last.fm snarls.lnk" "$INSTDIR\LastFmSnarls.exe" "" "$INSTDIR\LastFmSnarls.exe" 0
-  CreateShortCut "$SMPROGRAMS\$StartMenuFolder\\Documentation.lnk" "$INSTDIR\Documentation.URL" "" "$INSTDIR\Documentation.URL" 0
+  CreateShortCut "$SMPROGRAMS\$StartMenuFolder\\Documentation.lnk" "$INSTDIR\Documentation.URL" "" $INSTDIR\Documentation.ico" 0
   CreateShortCut "$SMPROGRAMS\$StartMenuFolder\\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
   
 !insertmacro MUI_STARTMENU_WRITE_END
 
   
 SectionEnd
-
 
 
 ;--------------------------------

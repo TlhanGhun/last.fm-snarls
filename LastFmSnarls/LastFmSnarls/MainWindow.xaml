@@ -1,10 +1,11 @@
 ﻿<Window x:Class="LastFmSnarls.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="MainWindow" Height="149" Width="167" AllowsTransparency="False" Closing="OnClose" StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged" Icon="/LastFmSnarls;component/LastFmSnarls.ico">
+    Title="MainWindow" Height="117" Width="205" AllowsTransparency="False" Closing="OnClose" StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged" Icon="/LastFmSnarls;component/LastFmSnarls.ico">
     <Grid>
-        <Button Height="23" Margin="38,41,0,0" Name="startButton" VerticalAlignment="Top" Click="startButton_Click" HorizontalAlignment="Left" Width="74" IsEnabled="False">Start</Button>
-        <Button Height="23" Margin="38,70,0,0" Name="stopButton" VerticalAlignment="Top" Click="stopButton_Click" HorizontalAlignment="Left" Width="74" IsEnabled="False">Stop</Button>
-        <TextBox Height="23" Margin="12,12,0,0" Name="userName" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" TextChanged="userName_TextChanged" AcceptsReturn="False" />
+        <Button Height="23" Margin="12,41,0,0" Name="startButton" VerticalAlignment="Top" Click="startButton_Click" HorizontalAlignment="Left" Width="74" IsEnabled="False">Start</Button>
+        <Button Height="23" Margin="92,41,0,0" Name="stopButton" VerticalAlignment="Top" Click="stopButton_Click" IsEnabled="False" HorizontalAlignment="Left" Width="74">Stop</Button>
+        <TextBox Height="23" Margin="65,12,0,0" Name="userName" VerticalAlignment="Top" TextChanged="userName_TextChanged" AcceptsReturn="False" HorizontalAlignment="Left" Width="101" />
+        <Label Height="23" Margin="12,12,0,0" Name="accountLabel" VerticalAlignment="Top" HorizontalAlignment="Left" Width="56">Account</Label>
     </Grid>
 </Window>

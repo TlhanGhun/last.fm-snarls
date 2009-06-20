@@ -15,7 +15,7 @@ namespace NativeWindowApplication
 
         public int SNARL_GLOBAL_MESSAGE;
         
-        private string iconPath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\LastFmSnarls.ico";
+        private string iconPath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\LastFm.ico";
         public string currentUrl = "";
         public string recentUrl = "";
         int idOfCurrentTrack = Convert.ToInt32(Snarl.WindowsMessage.WM_USER) + 11;
@@ -43,7 +43,7 @@ namespace NativeWindowApplication
                     SnarlConnector.RegisterAlert("last.fm snarls", "Now being played track");
                     SnarlConnector.RegisterAlert("last.fm snarls", "Recently played track");
                     SnarlConnector.RegisterAlert("last.fm snarls", "Connection error");
-                    SnarlConnector.RegisterAlert("last.fm snarls", "Debug messages");
+                    //SnarlConnector.RegisterAlert("last.fm snarls", "Debug messages");
                 }
             }
             else if (m.Msg == idOfCurrentTrack)

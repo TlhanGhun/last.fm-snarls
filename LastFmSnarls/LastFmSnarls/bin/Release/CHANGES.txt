@@ -1,2 +1,7 @@
+1.1
+Added label to accout field to give a hint what to put there
+Changed trayicon
+Complete setup program 
+
 1.0
 Initial version

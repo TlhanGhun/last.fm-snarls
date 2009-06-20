@@ -25,8 +25,9 @@ namespace LastFmSnarls
     public partial class MainWindow : Window
     {
         private static IntPtr hwnd = IntPtr.Zero;
-        private string versionString = "1.0";
+        private string versionString = "1.1";
         private static string iconPath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\LastFm.ico";
+        private static string iconPathApp = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\LastFmSnarls.ico";
         private static NativeWindowApplication.snarlMsgWnd snarlComWindow;
         private static string userNameString = "";
         private static bool DEBUG = false;
@@ -65,7 +66,7 @@ namespace LastFmSnarls
 
             m_notifyIcon = new System.Windows.Forms.NotifyIcon();
             m_notifyIcon.Text = "last.fm snarls";
-            m_notifyIcon.Icon = new System.Drawing.Icon(iconPath);
+            m_notifyIcon.Icon = new System.Drawing.Icon(iconPathApp);
             m_notifyIcon.DoubleClick += new EventHandler(m_notifyIcon_Click);
 
         }
@@ -154,9 +155,13 @@ namespace LastFmSnarls
                                 System.IO.File.Delete(artworkPath);
                             }
                         }
-                        directlyAfterStart = false;
+
+                        
                         lastRecent = lastTrack;
                     }
+
+                    directlyAfterStart = false;
+                    
                     Thread.Sleep(1000);
                 }
 
