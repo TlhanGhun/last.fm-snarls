@@ -1,3 +1,6 @@
+1.2
+Some user interface tweaks
+
 1.1
 Added label to accout field to give a hint what to put there
 Changed trayicon
