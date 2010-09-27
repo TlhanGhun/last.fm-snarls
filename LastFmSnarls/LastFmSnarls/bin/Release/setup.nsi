@@ -86,12 +86,12 @@ Var StartMenuFolder
 ;--------------------------------
 ;Version Information
 
-  VIProductVersion "1.0.0.0"
+  VIProductVersion "2.0.0.0"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "last.fm snarls"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "Tlhan Ghun"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "© Tlhan Ghun GPL v.3"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "Shows notifications using Snarl about the played track in last.fm"
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "1.0"
+  VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "2.0"
 
 
 
@@ -155,14 +155,11 @@ Section "last.fm snarls"
   File "CREDITS.txt"
   File "Documentation.URL"
   File "LastFm.ico"
-  File "LastFmLibNet.dll"
-  File "LastFmLibNet.pdb"
-  File "LastFmLibNet.xml"
   File "LastFmSnarls.exe"
   File "LastFmSnarls.pdb"
   File "LastFmSnarls.ico"
   File "LICENSE.txt"
-  File "Documentation.ico"
+;  File "Documentation.ico"
   
   
   ; Write the installation path into the registry

@@ -33,7 +33,7 @@
             </Button.Background>
             Stop
         </Button>
-        <TextBox Height="23" Margin="65,12,0,0" Name="userName" VerticalAlignment="Top" TextChanged="userName_TextChanged" AcceptsReturn="False" HorizontalAlignment="Left" Width="101" />
+        <TextBox KeyDown="userName_KeyDown" Height="23" Margin="65,12,0,0" Name="userName" VerticalAlignment="Top" TextChanged="userName_TextChanged" AcceptsReturn="False" HorizontalAlignment="Left" Width="101" />
         <Label Height="23" Margin="12,12,0,0" Name="accountLabel" VerticalAlignment="Top" HorizontalAlignment="Left" Width="56">Account</Label>
     </Grid>
 </Window>
